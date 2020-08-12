@@ -1,0 +1,50 @@
+package spark_sql
+
+import java.sql.{DriverManager, ResultSet}
+
+import org.apache.spark.{SparkConf, SparkContext};
+
+/**
+ * Author:BY
+ * Date:2019/11/1
+ * Description:标准JDBC连接方式
+ */
+object JavaJdbc {
+  def main(args: Array[String]): Unit = {
+    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("MySQL");
+    val sc = new SparkContext(sparkConf);
+    val data = sc.parallelize(List("Female", "Male", "Female"));
+    //    这样遍历有个好处,conn对象在foreach内部,也就是在executor中执行,不用传输,又不用多次使用.如果放在外面无法序列化会报错
+    data.foreachPartition(insertData);
+  }
+
+  def insertData(iterator: Iterator[String]): Unit = {
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bingo?useSSL=false&characterEncoding=UTF-8", "root", "By921644606");
+    iterator.foreach(data => {
+      val ps = conn.prepareStatement("insert into kafka values (?,?,?,?);");
+      ps.setString(1, data);
+      ps.executeUpdate();
+    });
+  }
+
+  def selectData(): Unit = {
+    val jdbcUrl = "jdbc:mysql://localhost:3306/bingo?useSSL=false&characterEncoding=UTF-8";
+    val c = classOf[com.mysql.cj.jdbc.Driver];
+    val conn = DriverManager.getConnection(jdbcUrl, "root", "By921644606");
+    val statement = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+    try {
+      val result = statement.executeQuery("select * from bingyi limit 3;");
+      while (result.next()) {
+        println(result.getString(1));
+      }
+    } catch {
+      case e: Exception => e.printStackTrace;
+    }
+    finally {
+      conn.close;
+    }
+  }
+}
+
+
