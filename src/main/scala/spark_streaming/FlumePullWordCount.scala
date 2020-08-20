@@ -22,9 +22,7 @@ object FlumePullWordCount {
     Logger.getLogger("org").setLevel(Level.ERROR);
     //创建StreamingContext两个参数 SparkConf和batch interval
     val ssc = new StreamingContext(sc, Seconds(5));
-
     val flumeStream = FlumeUtils.createPollingStream(ssc,hostname,port.toInt);
-
     flumeStream.map(x => new String(x.event.getBody.array()).trim).flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).print();
     ssc.start();
     ssc.awaitTermination();
