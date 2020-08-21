@@ -14,7 +14,6 @@ object WordCount {
     val config = new SparkConf().setMaster("local[3]").setAppName("WordCount").set("spark.testing.memory", "2147480000");
     //创建spark上下文对象
     val sc = new SparkContext(config);
-
     //将文件内容读取
     val lines: RDD[String] = sc.textFile("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\word.txt");
     //将一行一行的数据转换为单词

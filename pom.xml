@@ -14,12 +14,43 @@
         <mysql.version>8.0.18</mysql.version>
         <kafka.version>2.4.1</kafka.version>
         <hbase.version>2.2.4</hbase.version>
+        <commons.version>3.11</commons.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <paranamer.version>2.8</paranamer.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.thoughtworks.paranamer</groupId>
+            <artifactId>paranamer</artifactId>
+            <version>${paranamer.version}</version>
+        </dependency>
+        <!--        log4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
             <artifactId>scala-xml_${scala.version}</artifactId>
             <version>2.0.0-M1</version>
+        </dependency>
+<!--        commons-lang3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.version}</version>
         </dependency>
         <!--        mysql-->
         <dependency>
@@ -114,10 +145,6 @@
                     <groupId>org.apache.commons</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>curator-client</artifactId>
                     <groupId>org.apache.curator</groupId>
                 </exclusion>
@@ -142,16 +169,24 @@
                     <groupId>org.scala-lang.modules</groupId>
                 </exclusion>
                 <exclusion>
+                    <artifactId>snappy-java</artifactId>
+                    <groupId>org.xerial.snappy</groupId>
+                </exclusion>
+                <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
+                    <artifactId>commons-</artifactId>
+                    <groupId>org.apache.commons</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>snappy-java</artifactId>
-                    <groupId>org.xerial.snappy</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -189,12 +224,12 @@
                     <groupId>org.scala-lang</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>snappy-java</artifactId>
                     <groupId>org.xerial.snappy</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -235,12 +270,12 @@
                     <groupId>org.lz4</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>snappy-java</artifactId>
                     <groupId>org.xerial.snappy</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -349,10 +384,6 @@
                     <groupId>org.apache.avro</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>commons-math3</artifactId>
                     <groupId>org.apache.commons</groupId>
                 </exclusion>
@@ -387,6 +418,14 @@
                 <exclusion>
                     <artifactId>slf4j-log4j12</artifactId>
                     <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -445,10 +484,6 @@
                     <groupId>io.dropwizard.metrics</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>hadoop-auth</artifactId>
                     <groupId>org.apache.hadoop</groupId>
                 </exclusion>
@@ -472,6 +507,14 @@
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -494,10 +537,6 @@
                 <exclusion>
                     <artifactId>metrics-core</artifactId>
                     <groupId>io.dropwizard.metrics</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>commons-math3</artifactId>
@@ -579,6 +618,14 @@
                     <artifactId>slf4j-log4j12</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -593,10 +640,6 @@
                 <exclusion>
                     <artifactId>metrics-core</artifactId>
                     <groupId>io.dropwizard.metrics</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>hadoop-common</artifactId>
@@ -621,6 +664,14 @@
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
