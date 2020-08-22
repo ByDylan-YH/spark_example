@@ -26,7 +26,6 @@ object CircleQueueDemo {
           println("请输入一个数");
           val num = StdIn.readInt();
           queue.addQueue(num);
-        case "show" => queue.showQueue();
         case "get" =>
           //          对取回的值进行判断
           val result: Any = queue.getQueue();
