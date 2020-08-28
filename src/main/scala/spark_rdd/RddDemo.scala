@@ -27,6 +27,7 @@ object RddDemo {
     fileRDD.foreach(println);
     //将内存创建RDD数据保存到文件,8核，四个数据放八个分区
     //    fileRDD.saveAsTextFile("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\");
+    sc.stop();
   }
 
 }

@@ -22,4 +22,5 @@ object SparkJdbc extends App {
   jdbcDF.select("Form").limit(3).foreach(name => println(name));
   //DF存为新的表
   //  jdbcDF.write.mode("append").jdbc(url, "tableName2", prop);
+  sc.stop();
 }

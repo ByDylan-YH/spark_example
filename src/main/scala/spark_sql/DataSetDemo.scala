@@ -40,4 +40,5 @@ object DataSetDemo extends App {
     val points2 = pointsRDD.map(line => Point(line._1, line._2, line._3)).toDS;
     val categories2 = categoriesRDD.map(line => Category(line._1, line._2)).toDS;
     points2.join(categories2, points2("label") === categories2("name")).show;
+  sc.stop();
 }

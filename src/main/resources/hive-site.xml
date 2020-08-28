@@ -16,75 +16,99 @@
    limitations under the License.
 -->
 <configuration>
-  <!-- WARNING!!! This file is auto generated for documentation purposes ONLY! -->
-  <!-- WARNING!!! Any changes you make to this file will be ignored by Hive.   -->
-  <!-- WARNING!!! You must make your changes in hive-site.xml instead.         -->
-  <!-- Hive Execution Parameters -->
-<property>
+    <!-- WARNING!!! This file is auto generated for documentation purposes ONLY! -->
+    <!-- WARNING!!! Any changes you make to this file will be ignored by Hive.   -->
+    <!-- WARNING!!! You must make your changes in hive-site.xml instead.         -->
+    <!-- Hive Execution Parameters -->
+    <property>
         <name>javax.jdo.option.ConnectionURL</name>
         <value>jdbc:mysql://192.168.1.203:3306/hive?createDatabaseIfNotExist=true&amp;useSSL=false</value>
-</property>
-<property>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionDriverName</name>
         <value>com.mysql.cj.jdbc.Driver</value>
-</property>
-<property>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionUserName</name>
         <value>root</value>
-</property>
-<property>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionPassword</name>
         <value>By921644606</value>
-</property>
-<property>
+    </property>
+    <property>
         <name>datanucleus.connectionPoolingType</name>
         <value>dbcp</value>
         <description>
-          Expects one of [bonecp, dbcp, hikaricp, none].
-          Specify connection pool library for datanucleus
+            Expects one of [bonecp, dbcp, hikaricp, none].
+            Specify connection pool library for datanucleus
         </description>
-</property>
-<property>
-    <name>hive.server2.thrift.port</name>
-    <value>10000</value>
-</property>
-<property>
-    <name>hive.server2.thrift.bind.host</name>
-    <value>192.168.1.201</value>
-</property>
-<property>
-    <name>hive.server2.enable.doAs</name>
-    <value>true</value>
-</property>
-<property>
-    <name>hive.server2.authentication</name>
-    <value>NONE</value>
-</property>
-<property>
-    <name>spark.master</name>
-    <value>spark://by202:7077</value>
-</property>
-<property>
-    <name>spark.home</name>
-    <value>/opt/mysoft/spark-3.0.0-bin-hadoop3.2</value>
-</property>
-<!-- spark.yarn.jars         hdfs://192.168.1.202:9870/spark_jars/* -->
-<!-- # hdfs dfs -put /opt/mysoft/spark-3.0.0-bin-hadoop3.2/jars/* /spark_jars/ -->
-<property>
+    </property>
+    <property>
+        <name>hive.server2.thrift.port</name>
+        <value>10000</value>
+    </property>
+    <property>
+        <name>hive.server2.thrift.bind.host</name>
+        <value>192.168.1.201</value>
+    </property>
+    <property>
+        <name>hive.server2.enable.doAs</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hive.server2.authentication</name>
+        <value>NONE</value>
+    </property>
+    <property>
+        <name>spark.master</name>
+        <value>spark://192.168.1.202:7077</value>
+    </property>
+    <property>
+        <name>spark.home</name>
+        <value>/opt/mysoft/spark-3.0.0-bin-hadoop3.2</value>
+    </property>
+    <!-- spark.yarn.jars         hdfs://192.168.1.202:9870/spark_jars/* -->
+    <!-- # hdfs dfs -put /opt/mysoft/spark-3.0.0-bin-hadoop3.2/jars/* /spark_jars/ -->
+    <property>
         <name>spark.yarn.jars</name>
         <value>hdfs://192.168.1.202:9870/spark_jars/*</value>
-</property>
-<!-- 临时目录的一些配置 -->
-<property>
+    </property>
+    <!-- 临时目录的一些配置 -->
+    <property>
         <name>hive.querylog.location</name>
         <value>/opt/mysoft/apache-hive-3.1.2-bin/querylog</value>
-</property>
-<property>
+    </property>
+    <property>
         <name>hive.exec.local.scratchdir</name>
         <value>/opt/mysoft/apache-hive-3.1.2-bin/scratchdir</value>
-</property>
-<property>
+    </property>
+    <property>
         <name>hive.downloaded.resources.dir</name>
         <value>/opt/mysoft/apache-hive-3.1.2-bin/resources</value>
-</property>
+    </property>
+    <property>
+        <name>hive.stats.jdbc.timeout</name>
+        <value>3000</value>
+        <description>Timeout value (number of seconds) used by JDBC connection and statements.</description>
+    </property>
+    <property>
+        <name>hive.metastore.urls</name>
+        <value>thrift://192.168.1.201:9083</value>
+    </property>
+    <property>
+        <name>hive.stats.retries.wait</name>
+        <value>3000</value>
+        <description>Default Value</description>
+    </property>
+    <property>
+        <name>hive.metastore.integral.jdo.pushdown</name>
+        <value>false</value>
+        <description>Default Value</description>
+    </property>
+    <property>
+        <name>datanucleus.cache.level2</name>
+        <value>false</value>
+        <description>Default Value</description>
+    </property>
 </configuration>

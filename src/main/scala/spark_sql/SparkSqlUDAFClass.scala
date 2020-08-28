@@ -22,6 +22,7 @@ object SparkSqlUDAFClass {
     val avgColumn: TypedColumn[UserBean, Double] = udaf.toColumn.name("avgage");
     val dataSet: Dataset[UserBean] = dataFrame.as[UserBean];
     dataSet.select(avgColumn).show();
+    spark.stop();
   }
 }
 //注意这里的age,默认解析为 BigInt

@@ -13,9 +13,7 @@ import org.apache.spark.streaming.{Seconds, StreamingContext, Time};
  * Description:SparkStream整合SparkSql完整词频统计
  */
 object SocketSQL {
-
   case class Record(word: String);
-
   def main(args: Array[String]): Unit = {
     val sc: SparkConf = new SparkConf().setMaster("local[3]").setAppName("NetWork").set("spark.testing.memory", "2147480000");
     Logger.getLogger("org").setLevel(Level.ERROR);

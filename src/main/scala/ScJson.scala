@@ -14,5 +14,6 @@ object ScJson {
     file.collect().foreach(x => {
       println(JsonMethods.parse(x))
     });
+    sc.stop();
   }
 }

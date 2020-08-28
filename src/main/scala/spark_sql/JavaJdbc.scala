@@ -16,6 +16,7 @@ object JavaJdbc {
     val data = sc.parallelize(List("Female", "Male", "Female"));
     //    这样遍历有个好处,conn对象在foreach内部,也就是在executor中执行,不用传输,又不用多次使用.如果放在外面无法序列化会报错
     data.foreachPartition(insertData);
+    sc.stop();
   }
 
   def insertData(iterator: Iterator[String]): Unit = {

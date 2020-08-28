@@ -27,10 +27,7 @@ object FlumePushWordCount {
     val flumeStream = FlumeUtils.createStream(ssc,hostname,port.toInt)
 
     flumeStream.map(x => new String(x.event.getBody.array()).trim).flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).print()
-
-
     ssc.start()
-
     ssc.awaitTermination()
   }
 

@@ -16,6 +16,7 @@ object SeriaTest {
     val search = new Search("h");
     val match1 = search.getMatche1(rdd);
     match1.collect().foreach(println);
+    sc.stop();
   }
 }
 

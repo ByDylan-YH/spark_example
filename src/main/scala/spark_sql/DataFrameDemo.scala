@@ -60,5 +60,5 @@ object DataFrameDemo extends App {
   val rdd2 = sc.makeRDD(Seq(("a", 1),("b", 1)));
   val df2 = spark.createDataset(rdd2).toDF("name", "age");
   df2.show();
-
+  sc.stop();
 }
