@@ -1,11 +1,11 @@
 package spark_sql
 
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
-import org.apache.hadoop.hbase.mapreduce.TableInputFormat;
-import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.client.Result
+import org.apache.hadoop.hbase.io.ImmutableBytesWritable
+import org.apache.hadoop.hbase.mapreduce.TableInputFormat
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * Author:BY
@@ -18,7 +18,7 @@ object SparkHadoopHBase {
     val sc = new SparkContext(sparkConf);
     //构建HBase配置信息
     val conf = HBaseConfiguration.create();
-    conf.set("hbase.zookeeper.quorum", "192.168.1.101");
+    conf.set("hbase.zookeeper.quorum", "192.168.1.201");
     conf.set("hbase.zookeeper.property.clientPort", "2181");
     conf.set(TableInputFormat.INPUT_TABLE, "student");
     //从HBase读取数据形成RDD

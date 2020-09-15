@@ -1,7 +1,7 @@
 package spark_change_operator
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{Partitioner, SparkConf, SparkContext};
+import org.apache.spark.{Partitioner, SparkConf, SparkContext}
 
 /**
  * Author:BYDylan

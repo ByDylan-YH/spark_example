@@ -1,7 +1,7 @@
 package spark_rdd
 
-import org.apache.spark.rdd.RDD;
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.rdd.RDD
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Author:BY
@@ -14,7 +14,6 @@ object TopN {
     val sparkConf: SparkConf = new SparkConf().setAppName("TopN").setMaster("local[2]");
     //2、构建SparkContext对象
     val sc = new SparkContext(sparkConf);
-    sc.setLogLevel("warn");
     //3、读取数据文件
     val data: RDD[String] = sc.textFile("./data/access.log");
     //4、过滤出丢失的数据记录，直接舍弃掉

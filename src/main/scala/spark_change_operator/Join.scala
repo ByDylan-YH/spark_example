@@ -1,6 +1,6 @@
 package spark_change_operator
 
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * Author:BY

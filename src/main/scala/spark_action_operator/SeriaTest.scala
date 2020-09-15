@@ -12,9 +12,9 @@ object SeriaTest {
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000");
     val sc = new SparkContext(conf);
-    val rdd = sc.parallelize(Array("hadoop", "spark", "hive", "atguigu"));
+    val rdd: RDD[String] = sc.parallelize(Array("hadoop", "spark", "hive", "atguigu"));
     val search = new Search("h");
-    val match1 = search.getMatche1(rdd);
+    val match1: RDD[String] = search.getMatche2(rdd);
     match1.collect().foreach(println);
     sc.stop();
   }
@@ -23,19 +23,16 @@ object SeriaTest {
 //网络中传递的数据必须要进行序列化
 class Search(string: String) extends Serializable {
 
-  //  过滤出包含字符串的数据
   def isMatch(s: String): Boolean = {
     s.contains(string);
   }
 
-  //  过滤出包含字符串的RDD
   def getMatche1(rdd: RDD[String]): RDD[String] = {
     rdd.filter(isMatch);
   }
 
-  //  过滤出包含字符串的RDD
   def getMatche2(rdd: RDD[String]): RDD[String] = {
     val q = rdd; // 作为一个变量在driver中执行,不需要序列化
-    rdd.filter(x => x.contains(rdd));
+    rdd.filter(x => x.contains(string));
   }
 }

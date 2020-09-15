@@ -2,7 +2,7 @@ package spark_rdd
 
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Author:BY
@@ -48,7 +48,6 @@ object Iplocation {
     val sparkConf: SparkConf = new SparkConf().setAppName("Iplocation").setMaster("local[2]");
     //2、构建SparkContext对象
     val sc = new SparkContext(sparkConf);
-    sc.setLogLevel("warn");
     //3、加载城市ip信息数据，获取 (ip开始数字、ip结束数字、经度、纬度
     val city_ip_rdd: RDD[(String, String, String, String)] = sc.textFile("./data/ip.txt").map(x => x.split("\\|")).map(x => (x(2), x(3), x(x.length - 2), x(x.length - 1)));
     //使用spark的广播变量把共同的数据广播到参与计算的worker节点

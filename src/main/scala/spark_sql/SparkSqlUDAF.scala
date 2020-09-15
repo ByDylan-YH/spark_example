@@ -11,12 +11,14 @@ import org.apache.spark.sql.types.{DataType, DoubleType, LongType, StructType};
  * Description:自定义聚合函数
  */
 object SparkSqlUDAF {
+  private val project_path: String = System.getProperty("user.dir");
+
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setMaster("local[*]").setAppName("Coalesce").set("spark.testing.memory", "2147480000");
     val spark = SparkSession.builder.config(conf).getOrCreate();
     val udaf = new MyAvgFunt;
     spark.udf.register("avgage", udaf);
-    val dataFrame = spark.read.json("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\user.json");
+    val dataFrame = spark.read.json(project_path + "\\doc\\user.json");
     dataFrame.createOrReplaceTempView("user");
     spark.sql("select avgage(age) from user").show();
   }

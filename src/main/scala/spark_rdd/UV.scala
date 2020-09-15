@@ -1,7 +1,7 @@
 package spark_rdd
 
-import org.apache.spark.rdd.RDD;
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.rdd.RDD
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Author:BY
@@ -9,6 +9,7 @@ import org.apache.spark.{SparkConf, SparkContext};
   * Description:通过spark实现点击流日志分析 UV
   */
 object UV {
+  private val project_path: String = System.getProperty("user.dir");
   def main(args: Array[String]): Unit = {
     //1、构建SparkConf对象
     val sparkConf: SparkConf = new SparkConf().setAppName("UV").setMaster("local[2]");
@@ -16,7 +17,7 @@ object UV {
     val sc = new SparkContext(sparkConf);
     sc.setLogLevel("warn");
     //3、读取数据文件
-    val data: RDD[String] = sc.textFile("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\agent.log");
+    val data: RDD[String] = sc.textFile(project_path+"\\doc\\agent.log");
     //4、获取用户的唯一标识 ip
     val ipRDD: RDD[String] = data.map(x => x.split(" ")(0));
     //5、ip去重

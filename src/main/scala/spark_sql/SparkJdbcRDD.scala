@@ -3,7 +3,7 @@ package spark_sql
 import java.sql.DriverManager
 
 import org.apache.spark.rdd.JdbcRDD
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.{SparkConf, SparkContext}
 /**
  * Author:BYDylan
  * Date:2020/4/18
@@ -14,9 +14,9 @@ object SparkJdbcRDD {
     val config = new SparkConf().setMaster("local[*]").setAppName("Map").set("spark.testing.memory", "2147480000");
     val sc = new SparkContext(config);
     val driver = "com.mysql.cj.jdbc.Driver";
-    val url = "jdbc:mysql://localhost:3306/bingo";
+    val url = "jdbc:mysql://localhost:3306/ecif_etl_test";
     val userName = "root";
-    val passWd = "By921644606";
+    val passWd = "By9216446o6";
     val JdbcRdd = new JdbcRDD(sc, () => {
       Class.forName(driver);
       DriverManager.getConnection(url, userName, passWd);

@@ -9,6 +9,7 @@ import org.apache.spark.sql.{Row, SparkSession};
  * Description:Spark SQL读写parquet文件
  */
 object SparkParquet extends App {
+  private val project_path: String = System.getProperty("user.dir");
   val spark = SparkSession.builder.master("local").appName("MyName").getOrCreate;
   val sc = spark.sparkContext;
   val schema = StructType(Array(StructField("name", StringType),
@@ -17,11 +18,11 @@ object SparkParquet extends App {
   val rdd = sc.parallelize(List(("Alyssa", null, Array(3, 9, 15, 20)), ("Ben", "red", null)));
   val rowRDD = rdd.map(p => Row(p._1, p._2, p._3));
   val df = spark.createDataFrame(rowRDD, schema);
-  df.write.parquet("D:\\WorkSpace\\ideaProject\\spark_example\\doc");
+  df.write.parquet(project_path+"\\doc\\");
   //  通用保存方式
   //  df.write.format("json").mode("overwrite").save("D:\WorkSpace\ideaProject\spark_example\doc");
 
-  val df1 = spark.read.parquet("D:\\WorkSpace\\ideaProject\\spark_example\\doc");
+  val df1 = spark.read.parquet(project_path + "\\doc\\");
   df1.show;
   df1.printSchema;
 }

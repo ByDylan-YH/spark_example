@@ -1,10 +1,8 @@
 package spark_sql
 
 import org.apache.spark.SparkConf
-import org.apache.spark.sql.{Dataset, Encoder, Encoders, Row, SparkSession, TypedColumn}
-import org.apache.spark.sql.expressions.{Aggregator, MutableAggregationBuffer, UserDefinedAggregateFunction}
-import org.apache.spark.sql.types.{DataType, DoubleType, LongType, StructType}
-import spark_sql.DataSetDemo.spark;
+import org.apache.spark.sql.{Dataset, Encoder, Encoders, SparkSession, TypedColumn}
+import org.apache.spark.sql.expressions.Aggregator
 
 /**
  * Author:BYDylan
@@ -12,11 +10,12 @@ import spark_sql.DataSetDemo.spark;
  * Description:自定义 强类型 聚合函数
  */
 object SparkSqlUDAFClass {
+  private val project_path: String = System.getProperty("user.dir");
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setMaster("local[*]").setAppName("Coalesce").set("spark.testing.memory", "2147480000");
     val spark = SparkSession.builder.config(conf).getOrCreate();
     import spark.implicits._;
-    val dataFrame = spark.read.json("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\user.json");
+    val dataFrame = spark.read.json(project_path+"\\doc\\user.json");
     val udaf = new MyAvgFuntClass;
     //    将聚合函数转换成临时查询列
     val avgColumn: TypedColumn[UserBean, Double] = udaf.toColumn.name("avgage");
