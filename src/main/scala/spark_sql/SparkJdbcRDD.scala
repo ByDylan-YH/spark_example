@@ -21,10 +21,10 @@ object SparkJdbcRDD {
       Class.forName(driver);
       DriverManager.getConnection(url, userName, passWd);
     },
-      "select * from kafka where topic_partition >= ? and topic_partition <=?;",
-      1,
-      10,
-      1,
+      "select * from t_ods_bib_t_cm_clientinfo_hv where client_id >= ? and client_id <=?;",
+      800001,
+      800010,
+      3,
       r => (r.getInt(1), r.getString(2))
     );
 

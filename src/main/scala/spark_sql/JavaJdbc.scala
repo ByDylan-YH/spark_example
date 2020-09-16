@@ -31,7 +31,7 @@ object JavaJdbc {
   }
 
   def selectData(): Unit = {
-    val jdbcUrl = "jdbc:mysql://localhost:3306/bingo?useSSL=false&characterEncoding=UTF-8";
+    val jdbcUrl = "jdbc:mysql://localhost:3306/ecif_etl_test?useSSL=false&characterEncoding=UTF-8";
     val c = classOf[com.mysql.cj.jdbc.Driver];
     val conn = DriverManager.getConnection(jdbcUrl, "root", "By921644606");
     val statement = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);

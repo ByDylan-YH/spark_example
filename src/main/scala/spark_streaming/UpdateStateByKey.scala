@@ -1,8 +1,8 @@
 package spark_streaming
 
-import org.apache.spark.SparkConf;
-import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream};
-import org.apache.spark.streaming.{Seconds, StreamingContext};
+import org.apache.spark.SparkConf
+import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream}
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 /**
  * Author:BYDylan

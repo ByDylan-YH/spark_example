@@ -12,16 +12,16 @@ import org.apache.spark.sql.expressions.Aggregator
 object SparkSqlUDAFClass {
   private val project_path: String = System.getProperty("user.dir");
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf().setMaster("local[*]").setAppName("Coalesce").set("spark.testing.memory", "2147480000");
-    val spark = SparkSession.builder.config(conf).getOrCreate();
-    import spark.implicits._;
-    val dataFrame = spark.read.json(project_path+"\\doc\\user.json");
+    val sparkConf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("Coalesce").set("spark.testing.memory", "2147480000");
+    val sparkSession: SparkSession = SparkSession.builder.config(sparkConf).getOrCreate();
+    import sparkSession.implicits._;
+    val dataFrame = sparkSession.read.json(project_path+"\\doc\\people.json");
     val udaf = new MyAvgFuntClass;
     //    将聚合函数转换成临时查询列
     val avgColumn: TypedColumn[UserBean, Double] = udaf.toColumn.name("avgage");
     val dataSet: Dataset[UserBean] = dataFrame.as[UserBean];
     dataSet.select(avgColumn).show();
-    spark.stop();
+    sparkSession.stop();
   }
 }
 //注意这里的age,默认解析为 BigInt
@@ -42,14 +42,14 @@ class MyAvgFuntClass extends Aggregator[UserBean, AvgBuffer, Double] {
     return b;
   }
 
-//  合并缓冲区
+  //  合并缓冲区
   override def merge(b1: AvgBuffer, b2: AvgBuffer): AvgBuffer = {
     b1.sum = b1.sum + b2.sum;
     b1.count = b1.count + b2.count;
     return b1;
   }
 
-//  返回的值
+  //  返回的值
   override def finish(reduction: AvgBuffer): Double = {
     reduction.sum.toDouble / reduction.count;
   }

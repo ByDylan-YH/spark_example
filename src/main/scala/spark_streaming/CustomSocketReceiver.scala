@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets
 
 import org.apache.spark.SparkConf
 import org.apache.spark.storage.StorageLevel
+import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.receiver.Receiver
 
@@ -16,14 +17,14 @@ import org.apache.spark.streaming.receiver.Receiver
  */
 object CustomSocketReceiver {
   def main(args: Array[String]) {
-    val sparkConf = new SparkConf().setMaster("local[*]").setAppName("StreamWordCount");
-    val ssc = new StreamingContext(sparkConf, Seconds(5));
+    val sparkConf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("StreamWordCount");
+    val streamingContext = new StreamingContext(sparkConf, Seconds(5));
     //    创建自定义receiver的Streaming
-    val lineStream = ssc.receiverStream(new CustomSocketReceiver("127.0.0.1", 9999))
-    val wordAndCountStreams = lineStream.flatMap(_.split("\t")).map((_, 1)).reduceByKey(_ + _);
+    val lineStream: ReceiverInputDStream[String] = streamingContext.receiverStream(new CustomSocketReceiver("127.0.0.1", 9999));
+    val wordAndCountStreams: DStream[(String, Int)] = lineStream.flatMap(_.split("\t")).map((_, 1)).reduceByKey(_ + _);
     wordAndCountStreams.print();
-    ssc.start();
-    ssc.awaitTermination();
+    streamingContext.start();
+    streamingContext.awaitTermination();
   }
 }
 

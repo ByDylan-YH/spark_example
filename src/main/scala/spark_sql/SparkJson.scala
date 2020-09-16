@@ -1,6 +1,6 @@
 package spark_sql
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /**
  * Author:BYDylan
@@ -8,15 +8,18 @@ import org.apache.spark.sql.SparkSession
  * Description:spark 操作json数据
  */
 object SparkJson {
+  private val project_path: String = System.getProperty("user.dir");
+
   def main(args: Array[String]): Unit = {
     val sparkSession: SparkSession = SparkSession.builder.master("local[*]").appName("MyName").getOrCreate;
     val sc = sparkSession.sparkContext;
-    val dataFrame = sparkSession.read.json("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\user.json");
+    val dataFrame: DataFrame = sparkSession.read.json(project_path + "\\doc\\people.json");
     //    这种方式也可以,更通用
-    //    val dataFrame = spark.read.format("json").load("D:\\WorkSpace\\ideaProject\\spark_example\\doc\\user.json");
+//    val dataFrame: DataFrame = sparkSession.read.format("json").load(project_path + "\\doc\\people.json");
     dataFrame.show();
     dataFrame.select(dataFrame("age") + 1).show();
     dataFrame.createTempView("student");
     sparkSession.sql("select * from student").show();
+
   }
 }

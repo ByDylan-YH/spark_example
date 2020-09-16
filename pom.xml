@@ -19,8 +19,15 @@
         <log4j.version>1.2.17</log4j.version>
         <log4j2.version>2.13.1</log4j2.version>
         <paranamer.version>2.8</paranamer.version>
+        <snappy.version>1.1.7.7</snappy.version>
     </properties>
     <dependencies>
+        <!-- org.xerial.snappy 包冲突 -->
+        <dependency>
+            <groupId>org.xerial.snappy</groupId>
+            <artifactId>snappy-java</artifactId>
+            <version>${snappy.version}</version>
+        </dependency>
         <!--        paranamer-->
         <dependency>
             <groupId>com.thoughtworks.paranamer</groupId>
@@ -82,8 +89,18 @@
         <!--        spark-->
         <dependency>
             <groupId>org.apache.spark</groupId>
+            <artifactId>spark-tags_${scala.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_${scala.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-flume_${scala.version}</artifactId>
-            <version>2.4.5</version>
+            <version>2.4.7</version>
             <exclusions>
                 <exclusion>
                     <artifactId>gson</artifactId>
@@ -110,10 +127,6 @@
                     <groupId>commons-lang</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>avro</artifactId>
-                    <groupId>org.apache.avro</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>jackson-core-asl</artifactId>
                     <groupId>org.codehaus.jackson</groupId>
                 </exclusion>
@@ -133,12 +146,35 @@
                     <artifactId>joda-time</artifactId>
                     <groupId>joda-time</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>spark-tags_2.12</artifactId>
+                    <groupId>org.apache.spark</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>avro-ipc</artifactId>
+                    <groupId>org.apache.avro</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>avro</artifactId>
+                    <groupId>org.apache.avro</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-flume-sink_${scala.version}</artifactId>
-            <version>2.4.5</version>
+            <version>2.4.7</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spark-tags_2.12</artifactId>
+                    <groupId>org.apache.spark</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
+            <version>${spark.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -162,10 +198,6 @@
                     <groupId>commons-codec</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>avro-ipc</artifactId>
-                    <groupId>org.apache.avro</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>commons-compress</artifactId>
                     <groupId>org.apache.commons</groupId>
                 </exclusion>
@@ -178,10 +210,6 @@
                     <groupId>org.apache.hadoop</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>spark-tags_2.12</artifactId>
-                    <groupId>org.apache.spark</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>zookeeper</artifactId>
                     <groupId>org.apache.zookeeper</groupId>
                 </exclusion>
@@ -192,10 +220,6 @@
                 <exclusion>
                     <artifactId>scala-xml_2.12</artifactId>
                     <groupId>org.scala-lang.modules</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>snappy-java</artifactId>
-                    <groupId>org.xerial.snappy</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
@@ -212,6 +236,10 @@
                 <exclusion>
                     <artifactId>slf4j-log4j12</artifactId>
                     <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>snappy-java</artifactId>
+                    <groupId>org.xerial.snappy</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -241,42 +269,115 @@
                     <groupId>commons-lang</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>spark-tags_2.12</artifactId>
-                    <groupId>org.apache.spark</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>scala-library</artifactId>
                     <groupId>org.scala-lang</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>snappy-java</artifactId>
-                    <groupId>org.xerial.snappy</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming_${scala.version}</artifactId>
-            <version>${spark.version}</version>
-            <exclusions>
                 <exclusion>
-                    <artifactId>spark-tags_2.12</artifactId>
-                    <groupId>org.apache.spark</groupId>
+                    <artifactId>snappy-java</artifactId>
+                    <groupId>org.xerial.snappy</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
+            <artifactId>spark-hive_2.12</artifactId>
             <version>${spark.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>spark-tags_2.12</artifactId>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>protobuf-java</artifactId>
+                    <groupId>com.google.protobuf</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-cli</artifactId>
+                    <groupId>commons-cli</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>commons-io</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>metrics-core</artifactId>
+                    <groupId>io.dropwizard.metrics</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>metrics-json</artifactId>
+                    <groupId>io.dropwizard.metrics</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>metrics-jvm</artifactId>
+                    <groupId>io.dropwizard.metrics</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>joda-time</artifactId>
+                    <groupId>joda-time</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>antlr-runtime</artifactId>
+                    <groupId>org.antlr</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-compress</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>derby</artifactId>
+                    <groupId>org.apache.derby</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hadoop-common</artifactId>
+                    <groupId>org.apache.hadoop</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>httpcore</artifactId>
+                    <groupId>org.apache.httpcomponents</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spark-core_2.12</artifactId>
                     <groupId>org.apache.spark</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spark-sql_2.12</artifactId>
+                    <groupId>org.apache.spark</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>libthrift</artifactId>
+                    <groupId>org.apache.thrift</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>velocity</artifactId>
+                    <groupId>org.apache.velocity</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>paranamer</artifactId>
+                    <groupId>com.thoughtworks.paranamer</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -295,12 +396,12 @@
                     <groupId>org.lz4</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>snappy-java</artifactId>
-                    <groupId>org.xerial.snappy</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>snappy-java</artifactId>
+                    <groupId>org.xerial.snappy</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -405,10 +506,6 @@
                     <groupId>javax.xml.bind</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>avro</artifactId>
-                    <groupId>org.apache.avro</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>commons-math3</artifactId>
                     <groupId>org.apache.commons</groupId>
                 </exclusion>
@@ -451,6 +548,10 @@
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>avro</artifactId>
+                    <groupId>org.apache.avro</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -697,97 +798,6 @@
                 <exclusion>
                     <artifactId>commons-lang3</artifactId>
                     <groupId>org.apache.commons</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-hive_2.12</artifactId>
-            <version>3.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>protobuf-java</artifactId>
-                    <groupId>com.google.protobuf</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-cli</artifactId>
-                    <groupId>commons-cli</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-codec</artifactId>
-                    <groupId>commons-codec</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>metrics-core</artifactId>
-                    <groupId>io.dropwizard.metrics</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>metrics-json</artifactId>
-                    <groupId>io.dropwizard.metrics</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>metrics-jvm</artifactId>
-                    <groupId>io.dropwizard.metrics</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>joda-time</artifactId>
-                    <groupId>joda-time</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>antlr-runtime</artifactId>
-                    <groupId>org.antlr</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-compress</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>derby</artifactId>
-                    <groupId>org.apache.derby</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-common</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>httpcore</artifactId>
-                    <groupId>org.apache.httpcomponents</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spark-core_2.12</artifactId>
-                    <groupId>org.apache.spark</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spark-sql_2.12</artifactId>
-                    <groupId>org.apache.spark</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>libthrift</artifactId>
-                    <groupId>org.apache.thrift</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>velocity</artifactId>
-                    <groupId>org.apache.velocity</groupId>
                 </exclusion>
             </exclusions>
         </dependency>

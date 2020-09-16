@@ -3,7 +3,7 @@ package spark_sql
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
-import org.apache.spark.sql.types.{DataType, DoubleType, LongType, StructType};
+import org.apache.spark.sql.types.{DataType, DoubleType, LongType, StructType}
 
 /**
  * Author:BYDylan
@@ -18,7 +18,7 @@ object SparkSqlUDAF {
     val spark = SparkSession.builder.config(conf).getOrCreate();
     val udaf = new MyAvgFunt;
     spark.udf.register("avgage", udaf);
-    val dataFrame = spark.read.json(project_path + "\\doc\\user.json");
+    val dataFrame = spark.read.json(project_path + "\\doc\\people.json");
     dataFrame.createOrReplaceTempView("user");
     spark.sql("select avgage(age) from user").show();
   }

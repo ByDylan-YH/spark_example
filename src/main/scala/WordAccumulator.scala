@@ -11,8 +11,8 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object WordAccumulator {
   def main(args: Array[String]) {
-    val conf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("Accumulators").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(conf);
+    val sparkConf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("Accumulators").set("spark.testing.memory", "2147480000");
+    val sc = new SparkContext(sparkConf);
     val dataRdd: RDD[String] = sc.makeRDD(List("hadoop", "hbase", "kafka", "spark"), 2);
     val wordAccumulator = new WordAccumulator;
     sc.register(wordAccumulator, "accumulator");
