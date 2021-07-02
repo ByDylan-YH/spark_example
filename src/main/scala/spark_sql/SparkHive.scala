@@ -9,14 +9,14 @@ import org.apache.spark.sql.SparkSession
  * Description: Spark操作Hive
  */
 object SparkHive extends App {
-  //  System.setProperty("hadoop.home.dir", "D:\\Mysoft\\Hadoop-3.2.1");
-  System.setProperty("HADOOP_USER_NAME", "root");
+  //  System.setProperty("hadoop.home.dir", "D:\\Mysoft\\Hadoop-3.2.1")
+  System.setProperty("HADOOP_USER_NAME", "root")
   private val sparkConf: SparkConf = new SparkConf().setAppName("Spark hive")
     .set("hive.metastore.urls", "thrift://192.168.1.201:9083")
-    .setMaster("local[*]");
-  //    .setMaster("spark://192.168.1.202:7077");
-  private val spark: SparkSession = SparkSession.builder().config(sparkConf).enableHiveSupport().getOrCreate();
-  private val sc: SparkContext = spark.sparkContext;
-  spark.sql("select * from hive.test_hive;").show();
-  spark.close();
+    .setMaster("local[*]")
+  //    .setMaster("spark://192.168.1.202:7077")
+  private val spark: SparkSession = SparkSession.builder().config(sparkConf).enableHiveSupport().getOrCreate()
+  private val sc: SparkContext = spark.sparkContext
+  spark.sql("select * from hive.test_hive").show()
+  spark.close()
 }

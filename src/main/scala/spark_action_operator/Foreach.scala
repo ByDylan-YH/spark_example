@@ -10,10 +10,10 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object Foreach {
   def main(args: Array[String]) {
-    val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(conf);
-    var foreachRdd: RDD[Int]  = sc.makeRDD(1 to 5, 2);
-    foreachRdd.foreach(println(_));
-    sc.stop();
+    val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(conf)
+    var foreachRdd: RDD[Int]  = sc.makeRDD(1 to 5, 2)
+    foreachRdd.foreach(println(_))
+    sc.stop()
   }
 }

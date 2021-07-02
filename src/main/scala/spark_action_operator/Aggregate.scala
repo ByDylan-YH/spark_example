@@ -10,10 +10,10 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object Aggregate {
   def main(args: Array[String]) {
-    val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(conf);
-    var rdd1: RDD[Int] = sc.makeRDD(1 to 10, 2);
-    println(rdd1.aggregate(0)(_ + _, _ + _));
-    sc.stop();
+    val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(conf)
+    var rdd1: RDD[Int] = sc.makeRDD(1 to 10, 2)
+    println(rdd1.aggregate(0)(_ + _, _ + _))
+    sc.stop()
   }
 }

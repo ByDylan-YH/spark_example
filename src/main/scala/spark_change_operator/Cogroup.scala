@@ -11,11 +11,11 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object Cogroup {
   def main(args: Array[String]) {
-    val conf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("Coalesce").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(conf);
-    val rdd: RDD[(Int, String)] = sc.parallelize(Array((1, "a"), (2, "b"), (3, "c")));
-    val rdd1: RDD[(Int, String)] = sc.parallelize(Array((1, "a"), (2, "b"), (3, "c")));
-    rdd.cogroup(rdd1).collect().foreach(println);
-    sc.stop();
+    val conf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("Coalesce").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(conf)
+    val rdd: RDD[(Int, String)] = sc.parallelize(Array((1, "a"), (2, "b"), (3, "c")))
+    val rdd1: RDD[(Int, String)] = sc.parallelize(Array((1, "a"), (2, "b"), (3, "c")))
+    rdd.cogroup(rdd1).collect().foreach(println)
+    sc.stop()
   }
 }

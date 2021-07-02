@@ -11,15 +11,15 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object AggregateByKey {
   def main(args: Array[String]): Unit = {
-    val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("GroupBy").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(config);
-    val rdd: RDD[(String, Int)] = sc.parallelize(List(("a", 3), ("a", 2), ("b", 3), ("c", 4), ("c", 6), ("c", 8)), 2);
+    val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("GroupBy").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(config)
+    val rdd: RDD[(String, Int)] = sc.parallelize(List(("a", 3), ("a", 2), ("b", 3), ("c", 4), ("c", 6), ("c", 8)), 2)
         rdd.glom().collect().foreach(array => {
-//          println(array.mkString(","));
-          println(array.foreach(print));
-        });
-    val aggregateByKeyRDD: RDD[(String, Int)] = rdd.aggregateByKey(0)(math.max(_, _), _ + _);
-    aggregateByKeyRDD.collect().foreach(println);
-    sc.stop();
+//          println(array.mkString(","))
+          println(array.foreach(print))
+        })
+    val aggregateByKeyRDD: RDD[(String, Int)] = rdd.aggregateByKey(0)(math.max(_, _), _ + _)
+    aggregateByKeyRDD.collect().foreach(println)
+    sc.stop()
   }
 }

@@ -17,15 +17,15 @@ object FlumePullWordCount {
     }
     val Array(hostname,port) = args
 
-    val sc: SparkConf = new SparkConf().setMaster("local[3]").setAppName("FlumePullWordCount").set("spark.testing.memory", "2147480000");
+    val sc: SparkConf = new SparkConf().setMaster("local[3]").setAppName("FlumePullWordCount").set("spark.testing.memory", "2147480000")
 
-    Logger.getLogger("org").setLevel(Level.ERROR);
+    Logger.getLogger("org").setLevel(Level.ERROR)
     //创建StreamingContext两个参数 SparkConf和batch interval
-    val ssc = new StreamingContext(sc, Seconds(5));
-    val flumeStream = FlumeUtils.createPollingStream(ssc,hostname,port.toInt);
-    flumeStream.map(x => new String(x.event.getBody.array()).trim).flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).print();
-    ssc.start();
-    ssc.awaitTermination();
+    val ssc = new StreamingContext(sc, Seconds(5))
+    val flumeStream = FlumeUtils.createPollingStream(ssc,hostname,port.toInt)
+    flumeStream.map(x => new String(x.event.getBody.array()).trim).flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).print()
+    ssc.start()
+    ssc.awaitTermination()
   }
 
 }

@@ -15,37 +15,37 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object Map {
   def main(args: Array[String]): Unit = {
-    val config: SparkConf = new SparkConf().setMaster("local[1]").setAppName("Map").set("spark.testing.memory", "1073740000");
-    val sc = new SparkContext(config);
+    val config: SparkConf = new SparkConf().setMaster("local[1]").setAppName("Map").set("spark.testing.memory", "1073740000")
+    val sc = new SparkContext(config)
 
-    println("map: ");
-    val mapRdd: RDD[Int] = sc.makeRDD(1 to 3).map(_ * 2);
-    //    val mapRdd = listRdd.map(x => x * 2);
-    mapRdd.collect().foreach(println);
+    println("map: ")
+    val mapRdd: RDD[Int] = sc.makeRDD(1 to 3).map(_ * 2)
+    //    val mapRdd = listRdd.map(x => x * 2)
+    mapRdd.collect().foreach(println)
 
-    println("mapValues: ");
-    val mapValuesRdd: RDD[(Int, String)] = sc.parallelize(Array((3, "aa"), (6, "cc"), (2, "bb"), (1, "dd")));
-    mapValuesRdd.mapValues(_ + "|||").collect().foreach(println);
+    println("mapValues: ")
+    val mapValuesRdd: RDD[(Int, String)] = sc.parallelize(Array((3, "aa"), (6, "cc"), (2, "bb"), (1, "dd")))
+    mapValuesRdd.mapValues(_ + "|||").collect().foreach(println)
 
-    println("mapPartitions: ");
-    val mapPartitionsRdd: RDD[Int] = sc.makeRDD(1 to 3);
+    println("mapPartitions: ")
+    val mapPartitionsRdd: RDD[Int] = sc.makeRDD(1 to 3)
     val partitions: RDD[Int] = mapPartitionsRdd.mapPartitions(datas => {
       datas.map(_ * 2) // 这一行是scala负责,并没有发送给exectutor 不算是计算
-    });
-    partitions.collect.foreach(println);
+    })
+    partitions.collect.foreach(println)
 
-    println("mapPartitionsWithIndex: ");
-    val mapPartitionsWithIndexRdd: RDD[Int] = sc.makeRDD(1 to 3, 2);
+    println("mapPartitionsWithIndex: ")
+    val mapPartitionsWithIndexRdd: RDD[Int] = sc.makeRDD(1 to 3, 2)
     val tupRDD: RDD[(Int, String)] = mapPartitionsWithIndexRdd.mapPartitionsWithIndex {
       case (num, datas) => {
-        datas.map((_, "分区号:" + num));
+        datas.map((_, "分区号:" + num))
       }
-    };
-    tupRDD.collect().foreach(println);
-    println("flatMap: ");
-    val listRdd: RDD[Array[Int]] = sc.makeRDD(List(Array(1, 2), (Array(2, 3))));
-    val mapInfo: RDD[Int] = listRdd.flatMap(datas => datas);
-    mapInfo.collect().foreach(println);
-    sc.stop();
+    }
+    tupRDD.collect().foreach(println)
+    println("flatMap: ")
+    val listRdd: RDD[Array[Int]] = sc.makeRDD(List(Array(1, 2), (Array(2, 3))))
+    val mapInfo: RDD[Int] = listRdd.flatMap(datas => datas)
+    mapInfo.collect().foreach(println)
+    sc.stop()
   }
 }

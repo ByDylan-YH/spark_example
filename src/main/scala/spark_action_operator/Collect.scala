@@ -1,7 +1,7 @@
 package spark_action_operator
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * Author:BY
@@ -10,10 +10,10 @@ import org.apache.spark.{SparkConf, SparkContext};
  */
 object Collect {
   def main(args: Array[String]) {
-    val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(conf);
-    val rdd: RDD[Int] = sc.parallelize(1 to 10);
-    println(rdd.collect.mkString(","));
-    sc.stop();
+    val conf: SparkConf = new SparkConf().setMaster("local").setAppName("reduce").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(conf)
+    val rdd: RDD[Int] = sc.parallelize(1 to 10)
+    println(rdd.collect.mkString(","))
+    sc.stop()
   }
 }

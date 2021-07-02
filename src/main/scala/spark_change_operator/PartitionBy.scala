@@ -10,25 +10,25 @@ import org.apache.spark.{Partitioner, SparkConf, SparkContext}
  */
 object PartitionBy {
   def main(args: Array[String]): Unit = {
-    val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("GroupBy").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(config);
+    val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("GroupBy").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(config)
     //    必须是 key,value对,才能有partitionBy方法
-    val listRDD: RDD[(String, Int)] = sc.makeRDD(List(("a", 1), ("b", 2), ("c", 3)));
-    println("Before: " + listRDD.partitions.size);
-    val partitionBy: RDD[(String, Int)] = listRDD.partitionBy(new Mypartitioner(3));
-    println("After: " + partitionBy.partitions.size);
-    //    partitionBy.saveAsTextFile("output");
-    sc.stop();
+    val listRDD: RDD[(String, Int)] = sc.makeRDD(List(("a", 1), ("b", 2), ("c", 3)))
+    println("Before: " + listRDD.partitions.size)
+    val partitionBy: RDD[(String, Int)] = listRDD.partitionBy(new Mypartitioner(3))
+    println("After: " + partitionBy.partitions.size)
+    //    partitionBy.saveAsTextFile("output")
+    sc.stop()
   }
 }
 
 //自定义分区
 class Mypartitioner(partitions: Int) extends Partitioner {
   //  override def numPartitions: Int = {
-  //    partitions;
+  //    partitions
   //  }
   //  第二种写法
-  override def numPartitions: Int = partitions;
+  override def numPartitions: Int = partitions
 
   override def getPartition(key: Any): Int = {
     1

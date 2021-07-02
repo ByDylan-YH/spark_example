@@ -1,6 +1,6 @@
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkConf, SparkContext};
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * Author:BY
@@ -9,24 +9,24 @@ import org.apache.spark.{SparkConf, SparkContext};
  */
 object BroadCast {
   def main(args: Array[String]) {
-    val sparkConf: SparkConf = new SparkConf().setMaster("local[1]").setAppName("Map").set("spark.testing.memory", "1073740000");
-    val sc = new SparkContext(sparkConf);
-    val rdd: RDD[(Int, String)] = sc.parallelize(List((1, "a"), (2, "b"), (3, "c")));
-    val list = List((1, 1), (2, 2), (3, 3));
+    val sparkConf: SparkConf = new SparkConf().setMaster("local[1]").setAppName("Map").set("spark.testing.memory", "1073740000")
+    val sc = new SparkContext(sparkConf)
+    val rdd: RDD[(Int, String)] = sc.parallelize(List((1, "a"), (2, "b"), (3, "c")))
+    val list = List((1, 1), (2, 2), (3, 3))
 
-    val broadcast: Broadcast[List[(Int, Int)]] = sc.broadcast(list);
+    val broadcast: Broadcast[List[(Int, Int)]] = sc.broadcast(list)
     val resultRdd: RDD[(Int, (String, Any))] = rdd.map {
       case (key, value) => {
-        var v2: Any = null;
+        var v2: Any = null
         for (t <- broadcast.value) {
           if (key == t._1) {
-            v2 = t._2;
+            v2 = t._2
           }
         }
-        (key, (value, v2));
+        (key, (value, v2))
       }
     }
-    resultRdd.foreach(println);
-    sc.stop();
+    resultRdd.foreach(println)
+    sc.stop()
   }
 }

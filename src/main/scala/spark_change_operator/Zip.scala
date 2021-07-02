@@ -10,14 +10,14 @@ import org.apache.spark.{SparkConf, SparkContext}
  */
 object Zip {
   def main(args: Array[String]) {
-    val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("GroupBy").set("spark.testing.memory", "2147480000");
-    val sc = new SparkContext(config);
-    val rdd1: RDD[Int] = sc.parallelize(Array(1, 2, 3), 3);
-    val rdd2: RDD[String] = sc.parallelize(Array("a", "b", "c"), 3);
-    rdd1.zip(rdd2).collect().foreach(println);
-    rdd2.zip(rdd1).collect().foreach(println);
-    //    val rdd3 = sc.parallelize(Array("a","b","c"),2);
-    //    rdd1.zip(rdd3).collect().foreach(println);
-    sc.stop();
+    val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("GroupBy").set("spark.testing.memory", "2147480000")
+    val sc = new SparkContext(config)
+    val rdd1: RDD[Int] = sc.parallelize(Array(1, 2, 3), 3)
+    val rdd2: RDD[String] = sc.parallelize(Array("a", "b", "c"), 3)
+    rdd1.zip(rdd2).collect().foreach(println)
+    rdd2.zip(rdd1).collect().foreach(println)
+    //    val rdd3 = sc.parallelize(Array("a","b","c"),2)
+    //    rdd1.zip(rdd3).collect().foreach(println)
+    sc.stop()
   }
 }

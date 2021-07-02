@@ -7,7 +7,7 @@ import org.apache.spark.sql.{DataFrame, DataFrameReader, SparkSession}
  * Description:探索葡萄牙银行电话调查的结果
  */
 object DataAnalysisDemo {
-  private val project_path: String = System.getProperty("user.dir");
+  private val project_path: String = System.getProperty("user.dir")
 
   def main(args: Array[String]) {
     //葡萄牙银行通过电话访问进行市场调查得到数据集,以下为21个字段
@@ -61,7 +61,7 @@ object DataAnalysisDemo {
       .config("spark.ui.showConsoleProgress",true)
       .config("spark.testing.memory", "4294960000").master("local[2]").getOrCreate()
     //该数据集中的记录有些字段没用采集到数据为unknown
-    val dataFrame: DataFrame = spark.read.schema(schema).option("sep", ";").option("header", true)
+    val dataFrame: DataFrame = spark.read.schema(schema).option("sep", "").option("header", true)
       .csv(project_path + "\\doc\\bank-additional-full.csv")
     println("共有 %s 行".format(dataFrame.count()))
     println("根据婚姻情况统计各类人群的数量和缺失值的数量: ")
@@ -98,7 +98,7 @@ object DataAnalysisDemo {
     //        round(avg("previous"),2).name("AvgCalls(previous)")).withColumnRenamed("value","TDSubscribed?")
     //      .show(20)
     println("根据定期存款意愿将客户分组,并统计各组客户的客户总数,此次访谈的电话联系的平均次数,最后一次电话联系的平均持续时间,早前访谈电话联系的平均次数: ")
-    dsSubset.groupBy("y").agg(Map("age" -> "count", "campaign" -> "avg", "duration" -> "avg", "previous" -> "avg")).withColumnRenamed("value", "TDSubscribed?").show(20);
+    dsSubset.groupBy("y").agg(Map("age" -> "count", "campaign" -> "avg", "duration" -> "avg", "previous" -> "avg")).withColumnRenamed("value", "TDSubscribed?").show(20)
     println("根据年龄将客户分组,并统计各组客户的客户总数,此次访谈的电话联系的平均次数,最后一次电话联系的平均持续时间,早前访谈电话联系的平均次数: ")
     //    dataFrame.groupBy("age")
     //      .agg(count("age").name("Total customers"),
@@ -106,7 +106,7 @@ object DataAnalysisDemo {
     //        round(avg("duration"),2).name("Avg duration"),
     //        round(avg("previous"),2).name("AvgCalls(previous)")).orderBy("age")
     //      .show(20)
-    dsSubset.groupBy("age").agg(Map("age" -> "count", "campaign" -> "avg", "duration" -> "avg", "previous" -> "avg")).orderBy("age").show(20);
+    dsSubset.groupBy("age").agg(Map("age" -> "count", "campaign" -> "avg", "duration" -> "avg", "previous" -> "avg")).orderBy("age").show(20)
   }
 }
 

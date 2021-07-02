@@ -14,31 +14,31 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
 object UpdateStateByKey {
   def main(args: Array[String]): Unit = {
     System.setProperty("HADOOP_USER_NAME", "hadoop")
-    var sparkConf = new SparkConf().setMaster("local[*]").setAppName("UpdateStateByKey").set("spark.testing.memory", "2147480000");
-    val streamContext = new StreamingContext(sparkConf, Seconds(10));
-    streamContext.checkpoint("hdfs://192.168.1.101:9000/spark-streaming");
-    val socketStreamLine: ReceiverInputDStream[String] = streamContext.socketTextStream("192.168.1.101", 9999);
-    val result: DStream[(String, Int)] = socketStreamLine.flatMap(_.split(" ")).map((_, 1));
+    var sparkConf = new SparkConf().setMaster("local[*]").setAppName("UpdateStateByKey").set("spark.testing.memory", "2147480000")
+    val streamContext = new StreamingContext(sparkConf, Seconds(10))
+    streamContext.checkpoint("hdfs://192.168.1.101:9000/spark-streaming")
+    val socketStreamLine: ReceiverInputDStream[String] = streamContext.socketTextStream("192.168.1.101", 9999)
+    val result: DStream[(String, Int)] = socketStreamLine.flatMap(_.split(" ")).map((_, 1))
     //    无状态
-    //    result.reduceByKey(_ + _).print();
+    //    result.reduceByKey(_ + _).print()
     //    有状态
     val value: DStream[(String, Int)] =
     result.updateStateByKey {
       case (seq, buffer) => {
-        val sum = buffer.getOrElse(0) + seq.sum;
-        Option(sum);
+        val sum = buffer.getOrElse(0) + seq.sum
+        Option(sum)
       }
-    };
-    value.print();
-    //    result.updateStateByKey[Int](updateFunction _).print();
+    }
+    value.print()
+    //    result.updateStateByKey[Int](updateFunction _).print()
 
-    streamContext.start();
-    streamContext.awaitTermination();
+    streamContext.start()
+    streamContext.awaitTermination()
   }
 
   def updateFunction(currentValues: Seq[Int], preValues: Option[Int]): Option[Int] = {
-    val current = currentValues.sum;
-    val pre = preValues.getOrElse(0);
-    Some(current + pre);
+    val current = currentValues.sum
+    val pre = preValues.getOrElse(0)
+    Some(current + pre)
   }
 }
